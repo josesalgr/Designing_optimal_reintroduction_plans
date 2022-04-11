@@ -1,106 +1,3 @@
-def print_solutions(s,x,v):
-	import matplotlib.pyplot as plt
-	import math 
-
-	plt.figure(figsize=(10, 12))
-	axis_periods = ["1","2","3","4","5","6","7","8","9","10"]
-	font = {
-        'color':  'red',
-        'weight': 'normal',
-        'size': 12,
-        }
-	font2 = {
-        'color':  'blue',
-        'weight': 'normal',
-        'size': 12,
-        }
-
-	grid = plt.GridSpec(6, 2, wspace=0.3, hspace=0.8)
-	plt.suptitle('Instance-{}'.format(s+1),fontsize=14,fontweight="bold")
-
-	for i in range(0,units):
-    #1
-		#plt.subplot(5,2,i+1)
-
-		plt.subplot(grid[math.trunc(i/2),i%2])
-		plt.plot(v[i])
-		plt.axis([0,9,0,instance.ki[i+1]])
-		plt.title('Site {}'.format(i))
-		plt.xlabel('Periods')
-		plt.xticks(np.arange(periods),axis_periods)
-		plt.ylabel('N')
-		types = [str(j) for j in x[i]]
-		for k,type in enumerate(types):
-		    if  int(types[k]) > 0:
-		        plt.text(k-0.2, v[i][k]+instance.ki[i+1]/10, type, fontdict=font)
-
-		plt.grid(True)
-	
-
-	n_individuals[s] = []
-	for t in range(0, periods):
-		sum_individuals = 0
-		for i in range(0,units):
-			sum_individuals = sum_individuals + v[i][t]
-		n_individuals[s].append(sum_individuals)
-
-
-	plt.subplot(grid[5,:])
-	plt.plot(n_individuals[s])
-	plt.axis([0,9,0,math.trunc(n_individuals[s][periods-1])])
-	plt.title('Total individuals'.format(i))
-	plt.xlabel('Periods')
-	plt.xticks(np.arange(periods),axis_periods)
-	plt.ylabel('N')
-	plt.text(10-1, n_individuals[s][periods-1]+70, math.trunc(n_individuals[s][periods-1]), fontdict=font2)
-	plt.savefig('SC{}_solution.png'.format(s+1))		
-
-
-def print_comparations(n_individuals, periods):
-	import matplotlib.pyplot as plt
-	import matplotlib.patches as mpatches
-	from matplotlib.colors import colorConverter as cc
-	import numpy as np
-	 
-	def plot_mean_and_CI(mean, lb, ub, color_mean=None, color_shading=None):
-		axis_periods = ["1","2","3","4","5","6","7","8","9","10"]
-		periods = 10
-		plt.figure(0)
-	    # plot the shaded range of the confidence intervals
-		plt.fill_between(range(mean.shape[0]), ub, lb,
-	                     color=color_shading, alpha=.5)
-		plt.axis([0,9,0,lb[9]])
-		plt.xlabel('Periods')
-		plt.xticks(np.arange(periods),axis_periods)
-		plt.ylabel('N')
-
-	    # plot the mean on top
-		plt.plot(mean, color_mean)
-		plt.savefig('Summary_individuals.png')
-
-	ub0 = []
-	lb0 = []
-	mean0 = []
-
-	for t in range(periods):
-		min = 0
-		max = 0
-		sum = 0
-		for s in range(1,datCounter):
-			sum = sum + n_individuals[s][t]
-			if v[i][t]>max:
-				max = n_individuals[s][t]
-			if v[i][t]<min:
-				min = n_individuals[s][t]
-		mean0 = mean0 + [sum/datCounter]
-		lb0 = lb0 + [min]
-		ub0 = ub0 + [max]
-	    
-	mean0 = np.array(mean0,dtype=np.float)
-	lb0 = np.array(lb0,dtype=np.float)
-	ub0 = np.array(ub0,dtype=np.float) 
-	plot_mean_and_CI(mean0, ub0, lb0, color_mean='k', color_shading='k')
-
 if __name__ == "__main__":
 
 	from pyomo.environ import *
@@ -109,7 +6,7 @@ if __name__ == "__main__":
 	from pyomo.core import Var
 
 	import numpy as np
-	import GrowthSpecies as gr
+	import Model as gr
 
 	import glob
 	import os
@@ -127,20 +24,16 @@ if __name__ == "__main__":
 	datCounter = len(glob.glob1(mydir,"*.dat"))
 	n_individuals = {}
 
-	#for s in range(53,1000):
 	for s in range(datCounter):
 		start = time.time()
 		instance = gr.model.create_instance('Sc{}.dat'.format(s+1))
 		opt = pyo.SolverFactory('cplex')
-		opt.options["mipgap"] = 0.03
+		opt.options["mipgap"] = 0.01
 		sys.stdout = open('Output_Sc{}.dat'.format(s+1), 'w+')
 		results = opt.solve(instance, tee=True)
 		results.write()
 		sys.stdout.fileno()
 		end = time.time()
-
-		#Plotting
-
 
 		#Writting excel output
 		units = 10
@@ -250,7 +143,6 @@ if __name__ == "__main__":
 
 			wb.save('Results.xlsx')
 
-			#print_solutions(s,x,v)
 
 		else:	
 			w = copy(open_workbook('Results.xlsx'))
@@ -321,10 +213,6 @@ if __name__ == "__main__":
 			w.get_sheet(4).write(s+1,5, end - start)
 
 			w.save('Results.xlsx')
-
-			#print_solutions(s,x,v)
-
-	print_comparations(n_individuals, periods)
 
 
 

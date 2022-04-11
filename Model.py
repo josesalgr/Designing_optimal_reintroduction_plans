@@ -19,10 +19,6 @@ partitions = 5
 model.I = Set()
 #Set of periods
 model.T = Set()
-#Set of scenarios
-#model.S = RangeSet(1, 20)
-#Set of r's
-#model.R = RangeSet(1,r_sets)
 
 #Parameters--------------------------------------------------------------------------------------------------------
 
@@ -57,7 +53,7 @@ def fb(model, i, t):
 
 model.x = Var(model.I, model.T, within=NonNegativeIntegers)
 
-#If no caben
+#q_it = 1, if the capacity isn't enough
 model.q = Var(model.I, model.T, within=NonNegativeIntegers)
 
 #w_it: Quantity of species that keep in the period t in the scenario s
@@ -83,59 +79,6 @@ model.obj = Objective(rule=obj_rule, sense=maximize)
 
 
 #Constraints-------------------------------------------------------------------------------------------------------
-
-#Initial constraints
-#Can't introduce individuals in the first period
-
-#(*)
-#def initial1_rule(model,i):
-#    return model.x[i,1] == model.f_intro[i]
-#model.initial1 = Constraint(model.I, rule=initial1_rule)
-
-#(*)
-#def initial1_1_rule(model,i):
-#    return model.x[i,2] == model.f_intro2[i]
-#model.initial1_1 = Constraint(model.I, rule=initial1_1_rule)
-
-#Individuals in the fist period
-#def initial2_rule(model):
-#    return sum(model.v[i,1] for i in model.I) == 0
-
-#model.initial2 = Constraint(rule=initial2_rule)
-
-#Sites opened in the first period
-#(*) 
-#def initial3_rule(model,i):
-#    if model.f_intro[i]>0:
-#        return model.y[i,1]  == 1
-#    else:
-#        return model.y[i,1]  == 0
-#model.initial3 = Constraint(model.I, rule=initial3_rule)
-
-#(*)
-#def initial3_1_rule(model,i):
-#    if model.f_intro2[i]>0:
-#        return model.y[i,2]  == 1
-#    else:
-#        return model.y[i,2]  == 0
-# model.initial3_1 = Constraint(model.I, rule=initial3_1_rule)
-
-#Sites opened in the first period
-#(*)
-#def initial4_rule(model,i):
-#    if model.f_intro[i]>0:
-#        return model.z[i,1]  == 1
-#    else:
-#        return model.z[i,1]  == 0
-#model.initial4 = Constraint(model.I, rule=initial4_rule)
-
-#(*)
-#def initial4_1_rule(model,i):
-#    if model.f_intro2[i]>0:
-#        return model.z[i,2]  == 1
-#    else:
-#        return Constraint.Skip
-#model.initial4_1 = Constraint(model.I, rule=initial4_1_rule)
 
 #Limitations constraints
 #The number of individuals cannot exceed the capacity of the site
