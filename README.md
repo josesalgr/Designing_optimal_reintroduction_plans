@@ -9,7 +9,7 @@ This is the repository of our article "Designing an optimal large-scale reintrod
 -   xlrd
 -   pyomo
 -   xlutils
--   cplex (requires licence): It can obtained free through a [academic licence](https://www.ibm.com/support/pages/how-do-i-download-cplex-optimization-studio?mhsrc=ibmsearch_a&mhq=cplex)
+-   cplex (requires licence): It can obtained free through an [academic licence](https://www.ibm.com/support/pages/how-do-i-download-cplex-optimization-studio?mhsrc=ibmsearch_a&mhq=cplex)
 
 # Installation
 
