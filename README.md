@@ -1,6 +1,6 @@
 # 2022_Designing_optimal_reintroduction_plans
 
-This is the repository of our article "Designing optimal large-scale reintroduction plans for endangered species".
+This is the repository of our article "Designing an optimal large-scale reintroduction plan for a critically endangered species ".
 
 # Software pre-requisites
 
