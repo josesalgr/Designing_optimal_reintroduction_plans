@@ -151,19 +151,20 @@ def create_scenarios():
 if __name__ == "__main__":
 	
 	import os
+	import numpy as np
 	from itertools import product
 
 	#Parameters---------------------------------
 	periods = 10
 	units = 10
 	scenarios = 1000
-	efficiency = [0.179,0.678]
+	efficiency = [0.5,0.25]
 	b_min = 50
-	c_open = [15713.40, 9573.60, 33651.20, 5100.00, 5102.40, 34487.60, 14939.4, 5112.00, 94510.8, 5112.0]
-	c_monitoring = [4480.80, 4480.80, 4471.20, 4476.00, 4480.80, 4483.20, 4488.00, 4500.00, 4480.8, 4500.00]
-	c_monitoring_two = [2420.40, 2420.40, 2415.60, 2418.00, 2420.40, 2421.60, 2424.00, 2430.00, 2420.40, 2430]
+	c_open = np.random.randint(5000,35000, periods)
+	c_monitoring = np.random.randint(4000,5000, periods)
+	c_monitoring_two = np.random.randint(2000,3000, periods)
 	budget = 15000
-	long_tramo = [655,276,528,496,792,448,607, 1591,957,810]
+	long_tramo = np.random.randint(200,1000, periods)
 	first_introductions = [0,0,0,0,0,0,0,0,0]
 	second_introductions = [0,0,0,0,0,0,0,0,0]
 
