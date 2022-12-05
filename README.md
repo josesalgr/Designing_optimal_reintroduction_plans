@@ -1,4 +1,4 @@
-# 2022_Designing_optimal_reintroduction_plans
+# Designing an optimal large-scale reintroduction plan for a critically endangered species
 
 [![DOI](https://zenodo.org/badge/479031949.svg)](https://zenodo.org/badge/latestdoi/479031949)
 
