@@ -1,5 +1,7 @@
 # 2022_Designing_optimal_reintroduction_plans
 
+[![DOI](https://zenodo.org/badge/479031949.svg)](https://zenodo.org/badge/latestdoi/479031949)
+
 This is the repository of our article "Designing an optimal large-scale reintroduction plan for a critically endangered species ".
 
 # Software pre-requisites
