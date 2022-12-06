@@ -18,7 +18,7 @@ This is the repository of our article "Designing an optimal large-scale reintrod
 You can clone this repository using git as follows:
 
 ```{bash}
-git clone https://github.com/josesalgr/2022_Designing_optimal_reintroduction_plans.git
+git clone https://github.com/josesalgr/Designing_optimal_reintroduction_plans.git
 ```
 
 Or download it directly from this page.
